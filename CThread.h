@@ -53,7 +53,7 @@ protected:
     virtual void _cleanup(void) { }
 
 public:
-    CThread(threadType_e threadType = DETACH_E);
+    CThread(threadType_e threadType = DETACH_E) {};
 
     virtual ~CThread()
     {
@@ -95,9 +95,9 @@ public:
         return rtn;
     }
 
-    void mutexInit(pthread_mutex_t& mtx, mutextAttr_e mutexAttr = MUTEX_NORMAL_E);
+    static void mutexInit(pthread_mutex_t& mtx, mutextAttr_e mutexAttr = MUTEX_NORMAL_E);
 
-    void condInit(pthread_cond_t& cond)
+    static void condInit(pthread_cond_t& cond)
     {
         pthread_condattr_t condattr;
 
@@ -106,37 +106,37 @@ public:
         pthread_condattr_destroy(&condattr);
     }
 
-    void lock(pthread_mutex_t& mtx)
+    static void lock(pthread_mutex_t& mtx)
     {
         pthread_mutex_lock(&mtx);
     }
 
-    void tryLock(pthread_mutex_t& mtx)
+    static void tryLock(pthread_mutex_t& mtx)
     {
         pthread_mutex_trylock(&mtx);
     }
 
-    void unlock(pthread_mutex_t& mtx)
+    static void unlock(pthread_mutex_t& mtx)
     {
         pthread_mutex_unlock(&mtx);
     }
 
-    void condWait(pthread_cond_t& cond, pthread_mutex_t& mtx)
+    static void condWait(pthread_cond_t& cond, pthread_mutex_t& mtx)
     {
         pthread_cond_wait(&cond, &mtx);
     }
 
-    void condTimedWait(pthread_cond_t& cond, pthread_mutex_t& mtx, const struct timespec& abstime)
+    static void condTimedWait(pthread_cond_t& cond, pthread_mutex_t& mtx, const struct timespec& abstime)
     {
         pthread_cond_timedwait(&cond, &mtx, &abstime);
     }
 
-    void condSignal(pthread_cond_t& cond)
+    static void condSignal(pthread_cond_t& cond)
     {
         pthread_cond_signal(&cond);
     }
 
-    void condBroadcast(pthread_cond_t& cond)
+    static void condBroadcast(pthread_cond_t& cond)
     {
         pthread_cond_broadcast(&cond);
     }
