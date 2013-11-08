@@ -7,7 +7,7 @@
  *
  */
 
-#include "CThread.hpp"
+#include "CThread.h"
 
 
 void CThread::mutexInit(pthread_mutex_t& mtx, mutextAttr_e mutexAttr)
