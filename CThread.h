@@ -33,7 +33,7 @@ private:
     {
         CThread *_obj;
         _obj = reinterpret_cast<CThread *>(obj);
-        _obj->_cleanup();
+        _obj->cleanuUp();
     }
 
     static void* _threadFunc(void *obj)
@@ -42,15 +42,13 @@ private:
         _obj = reinterpret_cast<CThread *>(obj);
 
         pthread_cleanup_push(CThread::_cleanupHandler, obj);
+        _obj->onStartup();
         _obj->doWork();
+        _obj->onExit();
         pthread_cleanup_pop(1);
 
         return NULL;
     }
-
-
-protected:
-    virtual void _cleanup(void) { }
 
 public:
     CThread(threadType_e threadType = DETACH_E) {};
@@ -74,6 +72,9 @@ public:
      *  thread body 
      */
     virtual void doWork(void) = 0;
+    virtual void onStartup(void) {}
+    virtual void onExit(void) {}
+    virtual void cleanuUp(void) {}
 
     pthread_t getThreadId(void)
     {
@@ -96,6 +97,11 @@ public:
     }
 
     static void mutexInit(pthread_mutex_t& mtx, mutextAttr_e mutexAttr = MUTEX_NORMAL_E);
+
+    static void mutexDestroy(pthread_mutex_t& mtx)
+    {
+        pthread_mutex_destroy(&mtx);
+    }
 
     static void condInit(pthread_cond_t& cond)
     {
