@@ -43,7 +43,7 @@ private:
 
         pthread_cleanup_push(CThread::_cleanupHandler, obj);
         _obj->onStartup();
-        _obj->doWork();
+        _obj->process();
         _obj->onExit();
         pthread_cleanup_pop(1);
 
@@ -71,7 +71,7 @@ public:
     /* 
      *  thread body 
      */
-    virtual void doWork(void) = 0;
+    virtual void process(void) = 0;
     virtual void onStartup(void) {}
     virtual void onExit(void) {}
     virtual void cleanuUp(void) {}

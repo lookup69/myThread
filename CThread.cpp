@@ -9,8 +9,7 @@
 
 #include "CThread.h"
 
-
-void CThread::mutexInit(pthread_mutex_t& mtx, mutextAttr_e mutexAttr)
+void CThread::mutexInit(pthread_mutex_t &mtx, mutextAttr_e mutexAttr)
 {
     pthread_mutexattr_t mtxAttr;
 
