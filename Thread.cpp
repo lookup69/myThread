@@ -7,9 +7,10 @@
  *
  */
 
-#include "CThread.h"
+#include "Thread.h"
+using namespace lookup69;
 
-int CThread::mutexInit(pthread_mutex_t &mtx, mutextAttr_e mutexAttr)
+int Thread::mutexInit(pthread_mutex_t &mtx, mutextAttr_e mutexAttr)
 {
     pthread_mutexattr_t mtxAttr;
     int ret;
