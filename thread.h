@@ -13,14 +13,14 @@
 
 namespace lookup69 {
     enum threadType_e {
-        CTHREAD_JOIN_E,
-        CTHREAD_DETACH_E
+        THREAD_JOIN_E,
+        THREAD_DETACH_E
     };
 
     enum mutextAttr_e {
-        CTHREAD_MUTEX_NORMAL_E,
-        CTHREAD_MUTEX_ERROR_CHECK_E,
-        CTHREAD_MUTEX_RECURSIVE_E
+        THREAD_MUTEX_NORMAL_E,
+        THREAD_MUTEX_ERROR_CHECK_E,
+        THREAD_MUTEX_RECURSIVE_E
     };
 
     class Thread
@@ -43,7 +43,7 @@ namespace lookup69 {
         }
 
     public:
-        Thread(threadType_e threadType = CTHREAD_DETACH_E) : m_threadType(threadType) { };
+        Thread(threadType_e threadType = THREAD_DETACH_E) : m_threadType(threadType) { };
 
         virtual ~Thread()
         {
@@ -53,7 +53,7 @@ namespace lookup69 {
         /*
          *  mutex operation
          */
-        static int mutexInit(pthread_mutex_t &mtx, mutextAttr_e mutexAttr = CTHREAD_MUTEX_NORMAL_E);
+        static int mutexInit(pthread_mutex_t &mtx, mutextAttr_e mutexAttr = THREAD_MUTEX_NORMAL_E);
 
         static int mutexDestroy(pthread_mutex_t &mtx)
         {
@@ -155,7 +155,7 @@ namespace lookup69 {
             int rtn;
 
             rtn = pthread_create(&m_tid, NULL, Thread::threadFunc_, this);
-            if(!rtn && (m_threadType == CTHREAD_DETACH_E))
+            if(!rtn && (m_threadType == THREAD_DETACH_E))
                 pthread_detach(m_tid);
 
             return rtn;
