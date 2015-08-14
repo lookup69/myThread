@@ -33,13 +33,14 @@ namespace lookup69 {
         static void *threadFunc_(void *obj)
         {
             Thread *obj_;
+            void   *ret;
 
             obj_ = reinterpret_cast<Thread *>(obj);
             obj_->onStartup();
-            obj_->process();
+            ret = obj_->process();
             obj_->onExit();
 
-            return NULL;
+            return ret;
         }
 
     public:
@@ -187,7 +188,7 @@ namespace lookup69 {
         /* 
          *  thread body 
          */
-        virtual void process(void) = 0;
+        virtual void *process(void) = 0;
 
         /*
          *  initialize extra resources
