@@ -8,7 +8,7 @@
  */
 
 #include "thread.h"
-using namespace lookup69;
+using namespace lkup69;
 
 int Thread::mutexInit(pthread_mutex_t &mtx, mutextAttr_e mutexAttr)
 {

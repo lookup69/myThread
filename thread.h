@@ -11,7 +11,7 @@
 #define _LOOKUP69_THREAD_H_
 #include <pthread.h>
 
-namespace lookup69 {
+namespace lkup69 {
     enum threadType_e {
         THREAD_JOIN_E,
         THREAD_DETACH_E
@@ -28,6 +28,7 @@ namespace lookup69 {
     private:
         pthread_t       m_tid;
         threadType_e    m_threadType;
+        pthread_mutex_t m_selfMutx;
 
     private:
         static void *threadFunc_(void *obj)
@@ -77,6 +78,7 @@ namespace lookup69 {
             //printf("pthread_mutex_unlock(%p)\n", &mtx);
             return pthread_mutex_unlock(&mtx);
         }
+
         /*
          *  read write lock
          */
@@ -185,6 +187,16 @@ namespace lookup69 {
             return rtn;
         }
 
+        int selfLock(void)
+        {
+            return pthread_mutex_lock(&m_selfMutx);
+        }
+
+        int selfUnLock(void)
+        {
+            return pthread_mutex_unlock(&m_selfMutx);
+        }
+       
         /* 
          *  thread body 
          */
